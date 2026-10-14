@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 680">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#b8d5b0"/><stop offset=".58" stop-color="#e8d9a7"/><stop offset="1" stop-color="#66875f"/></linearGradient>
+    <linearGradient id="hill" x2="0" y2="1"><stop stop-color="#668b58"/><stop offset="1" stop-color="#244e3d"/></linearGradient>
+  </defs>
+  <rect width="480" height="680" fill="url(#sky)"/>
+  <circle cx="365" cy="135" r="66" fill="#fff1c0" opacity=".8"/>
+  <path d="M0 356 89 244l72 79 98-168 92 172 59-74 70 94v333H0Z" fill="#839675"/>
+  <path d="m0 440 105-79 61 43 89-74 62 65 83-49 80 68v266H0Z" fill="url(#hill)"/>
+  <path d="M40 680q-35-111 43-171 8-92 101-94 88 11 94 102 73 39 54 163Z" fill="#d9c28a"/>
+  <ellipse cx="191" cy="510" rx="99" ry="90" fill="#4d704a"/>
+  <path d="M145 680V529q43-61 91 0v151Z" fill="#392e25"/>
+  <circle cx="192" cy="582" r="48" fill="#243d32" stroke="#dfc783" stroke-width="10"/>
+  <path d="M333 502q45-72 94 0l-22-51 36-15-53 7-26-40-5 48Z" fill="#e8d493" opacity=".92"/>
+  <g fill="#f4e9bd" opacity=".85"><circle cx="92" cy="173" r="5"/><circle cx="213" cy="111" r="4"/><circle cx="424" cy="258" r="4"/></g>
+</svg>

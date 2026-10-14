@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 680">
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#f4c28a"/><stop offset="1" stop-color="#b96447"/></linearGradient>
+    <linearGradient id="coin" x2="1" y2="1"><stop stop-color="#fff1ae"/><stop offset="1" stop-color="#d38e3e"/></linearGradient>
+  </defs>
+  <rect width="480" height="680" fill="url(#bg)"/>
+  <circle cx="366" cy="143" r="110" fill="#fff1cb" opacity=".3"/>
+  <path d="M0 545h480v135H0Z" fill="#643f3e"/>
+  <g fill="#784541"><path d="M45 291h91v254H45z"/><path d="M154 222h103v323H154z"/><path d="M278 326h66v219h-66z"/><path d="M364 176h73v369h-73z"/></g>
+  <g fill="#f7d48e" opacity=".8"><path d="M62 315h14v23H62zm38 0h14v23h-14zm69-68h15v28h-15zm44 0h15v28h-15zm-44 49h15v28h-15zm44 0h15v28h-15zm136 49h14v25h-14zm37-142h15v29h-15zm37 0h15v29h-15zm-37 50h15v29h-15zm37 0h15v29h-15z"/></g>
+  <ellipse cx="237" cy="518" rx="121" ry="33" fill="url(#coin)" stroke="#ffe7a4" stroke-width="5"/>
+  <path d="M116 486v31q0 34 121 34t121-34v-31" fill="#d49145" stroke="#f8dda0" stroke-width="5"/>
+  <ellipse cx="237" cy="486" rx="121" ry="33" fill="url(#coin)" stroke="#fff0b4" stroke-width="5"/>
+  <path d="M237 465v43m-20-30q22-23 43 0-26 9-1 24-21 20-44 0" fill="none" stroke="#98603e" stroke-width="7" stroke-linecap="round"/>
+  <path d="M50 164h80m-40-40v80m265 18h48m-24-24v48" stroke="#fff1ca" stroke-width="5" opacity=".8"/>
+</svg>

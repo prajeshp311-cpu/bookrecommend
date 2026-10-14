@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find your next favorite book with a simple content-based recommendation system.">
+  <title>PageTurner | Book Recommendations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="site-shell">
+    <nav class="navbar">
+      <a class="brand" href="/">
+        <span class="brand-mark">P</span>
+        <span>PageTurner<span class="brand-dot">.</span></span>
+      </a>
+      <div class="nav-note"><span class="status-dot"></span> Your personal reading guide</div>
+    </nav>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span>✦</span> YOUR NEXT CHAPTER STARTS HERE</p>
+          <h1>Find a book.<br><em>Find a new world.</em></h1>
+          <p class="hero-description">Tell us a book you love. We'll find three more that match its themes and genres.</p>
+
+          <form class="search-panel" id="search-form" method="POST" action="/">
+            <label for="book_name">Which book did you enjoy?</label>
+            <div class="search-row">
+              <span class="search-icon" aria-hidden="true">⌕</span>
+              <input
+                id="book_name"
+                name="book_name"
+                list="book-options"
+                placeholder="Try “Harry Potter”..."
+                value="{{ query }}"
+                autocomplete="off"
+                required
+              >
+              <datalist id="book-options">
+                {% for book in books %}
+                  <option value="{{ book.title }}"></option>
+                {% endfor %}
+              </datalist>
+              <button type="submit">
+                <span class="button-label">Find books</span>
+                <span class="button-arrow" aria-hidden="true">→</span>
+              </button>
+            </div>
+            <p class="search-hint">Choose from our sample collection of 8 books.</p>
+            <p class="visually-hidden" id="search-status" aria-live="polite"></p>
+          </form>
+          {% if error %}
+            <div class="alert" role="alert">⚠ {{ error }}</div>
+          {% endif %}
+        </div>
+
+        <div class="hero-art" aria-label="Decorative stack of books">
+          <div class="spark spark-one">✦</div>
+          <div class="spark spark-two">✧</div>
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="floating-book book-back"><span>STORIES</span></div>
+          <div class="floating-book book-middle"><span>THE<br>ART OF<br>READING</span><small>VOL. 01</small></div>
+          <div class="floating-book book-front"><span>OPEN<br>A BOOK.<br><i>Open a world.</i></span><small>PAGE TURNER</small></div>
+          <div class="art-caption"><span class="caption-icon">✧</span><span>Every book leads<br>somewhere wonderful.</span></div>
+        </div>
+      </section>
+
+      {% if result %}
+      <section class="results-section" id="recommendations" aria-live="polite">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CURATED FOR YOU</p>
+            <h2>Because you liked <em>{{ result.selected.title }}</em></h2>
+            <p class="section-subtitle">Here are three books with similar themes and reading vibes.</p>
+          </div>
+          <span class="result-count">TOP 3 PICKS</span>
+        </div>
+
+        <div class="selected-book">
+          <div class="mini-cover cover-{{ result.selected.cover }}">
+            <img class="cover-art" src="{{ url_for('static', filename='images/' ~ result.selected.image) }}" alt="" aria-hidden="true">
+          </div>
+          <div>
+            <span class="selected-label">YOUR SELECTED BOOK</span>
+            <h3>{{ result.selected.title }}</h3>
+            <p>{{ result.selected.genre }}</p>
+          </div>
+          <span class="selected-check">✓</span>
+        </div>
+
+        <div class="book-grid">
+          {% for book in result.recommendations %}
+          <article class="book-card">
+            <div class="book-cover cover-{{ book.cover }}">
+              <span class="cover-decoration"></span>
+              <img class="cover-art" src="{{ url_for('static', filename='images/' ~ book.image) }}" alt="" aria-hidden="true">
+              <span class="cover-title">{{ book.title }}</span>
+              <span class="cover-line"></span>
+              <span class="cover-label">A PAGE TURNER PICK</span>
+            </div>
+            <div class="book-details">
+              <p class="book-category">{{ book.genre }}</p>
+              <h3>{{ book.title }}</h3>
+              <div class="match-row">
+                <span>Similarity match</span>
+                <strong>{{ "%.2f"|format(book.score) }}%</strong>
+              </div>
+              <div class="match-track"><span style="width: {{ [book.score, 100]|min }}%"></span></div>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+      {% else %}
+      <section class="collection-section">
+        <div class="section-heading compact-heading">
+          <div>
+            <p class="eyebrow">A LITTLE INSPIRATION</p>
+            <h2>Explore the <em>collection</em></h2>
+            <p class="section-subtitle">Pick any title below, or type it into the search box above.</p>
+          </div>
+          <span class="collection-count">08 BOOKS</span>
+        </div>
+        <div class="collection-grid">
+          {% for book in books %}
+          <form method="POST" action="/" class="collection-item">
+            <input type="hidden" name="book_name" value="{{ book.title }}">
+            <button type="submit" class="collection-button" aria-label="Get recommendations based on {{ book.title }}">
+              <div class="mini-cover cover-{{ book.cover }}">
+                <img class="cover-art" src="{{ url_for('static', filename='images/' ~ book.image) }}" alt="" aria-hidden="true">
+              </div>
+              <div class="collection-info">
+                <span>{{ book.genre }}</span>
+                <strong>{{ book.title }}</strong>
+                <small>Find similar books <span>→</span></small>
+              </div>
+            </button>
+          </form>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    </main>
+
+    <footer>
+      <a class="brand footer-brand" href="/"><span class="brand-mark">P</span><span>PageTurner<span class="brand-dot">.</span></span></a>
+      <p>Made for curious minds and late-night readers.</p>
+      <span class="footer-tech">POWERED BY PYTHON + COSINE SIMILARITY</span>
+    </footer>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</body>
+</html>
